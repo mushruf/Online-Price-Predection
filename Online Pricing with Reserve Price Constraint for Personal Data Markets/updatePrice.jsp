@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Adding Posts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.jcarousel.js"></script>
+<script type="text/javascript" src="js/cufon-yui.js"></script>
+<script type="text/javascript" src="js/MyriadPro.font.js"></script>
+<script type="text/javascript" src="js/ArialBold.font.js"></script>
+<script type="text/javascript" src="js/jquery-func.js"></script>
+<link rel="shortcut icon" type="image/x-icon" href="css/images/favicon.ico" />
+<!--[if IE 6]><link rel="stylesheet" href="css/ie.css" type="text/css" media="all" /><![endif]-->
+<style type="text/css">
+<!--
+.style13 {
+	font-size: 25px;
+	font-family: "Times New Roman", Times, serif;
+	color: #272727;
+}
+.style7 {font-size: 14px}
+.style8 {font-size: 16px}
+.style17 {color: #FF00FF}
+.style19 {color: #FFFF00}
+-->
+</style>
+<script language="javaScript">
+	function checkPrice(f)
+	{
+		var rprice = f.price.value;
+		var uprice = f.uprice.value;
+		
+		if(uprice<rprice)
+		{
+			alert("Updated price should be above or equal to reserve price.");
+			f.uprice.focus();
+			return false;
+		}
+		return true;
+	}
+</script>
+</head>
+<body>
+<!-- START PAGE SOURCE -->
+<div id="header">
+  <div class="shell">
+    <pre class="box"><span class="box style13">Online Pricing with Reserve Price Constraint for Personal Data Markets</span>
+    </pre>
+    <div id="navigation">
+      <ul>
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="UserLogin.jsp">USER</a></li>
+        <li><a href="AdminLogin.jsp">Data Owner</a></li>
+	  <li><a href="EcommerceLogin.jsp">Agent</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="intro">
+  <div class="shell">
+    <div class="slider-holder">
+      <ul>
+        <li>
+          <div class="offer-image"> <img src="css/images/offer-image-1.jpg" alt="" /> </div>
+          <div class="offer-data">
+            <h3>Concept</h3>
+            <div class="entry">
+              <p>Online Pricing with Reserve Price Constraint for Personal Data Markets----personal data market, revenue maximization, contextual dynamic pricing, reserve price, ellipsoid.</p>
+            </div>
+           
+        </li>
+        <li>
+          <div class="offer-image"> <img src="css/images/offer-image-2.jpg" alt="" /> </div>
+          <div class="offer-data">
+            <h3>Concept</h3>
+            <div class="entry">
+              <p>Online Pricing with Reserve Price Constraint for Personal Data Markets----personal data market, revenue maximization, contextual dynamic pricing, reserve price, ellipsoid.</p>
+            </div>
+        </li>
+        <li>
+          <div class="offer-image"> <img src="css/images/offer-image-3.jpg" alt="" /> </div>
+          <div class="offer-data">
+            <h3>Concept</h3>
+            <div class="entry">
+              <p>Online Pricing with Reserve Price Constraint for Personal Data Markets----personal data market, revenue maximization, contextual dynamic pricing, reserve price, ellipsoid.</p>
+            </div>
+       </li>
+        <li>
+          <div class="offer-image"> <img src="css/images/offer-image-4.jpg" alt="" /> </div>
+          <div class="offer-data">
+            <h3>Concept</h3>
+            <div class="entry">
+              <p>Online Pricing with Reserve Price Constraint for Personal Data Markets----personal data market, revenue maximization, contextual dynamic pricing, reserve price, ellipsoid.</p>
+            </div>
+        </li>
+        <li>
+          <div class="offer-image"> <img src="css/images/offer-image-5.jpg" alt="" /> </div>
+          <div class="offer-data">
+            <h3>Concept</h3>
+            <div class="entry">
+              <p>Online Pricing with Reserve Price Constraint for Personal Data Markets----personal data market, revenue maximization, contextual dynamic pricing, reserve price, ellipsoid.</p>
+            </div>
+       </li>
+      </ul>
+    </div>
+    <div class="slider-navigation">
+      <ul>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="main">
+  <div class="shell">
+    <div class="box">
+      <h2>Update Price</h2>
+      <div id="templatemo_right_section">
+        <p>
+          <%@page import ="java.util.*"%>
+          <%@ include file="connect.jsp" %>
+          <%
+	
+      	try 
+		{
+			double uprice;
+			int rrank = 0;
+      		String s1 ="", s2="", s3="", s4="", s5="", s6="", s7="";
+      		 String pname = request.getParameter("pname");
+			 System.out.println("post name:"+pname);
+			
+			String query ="select * from posts where p_name='"+pname+"'";
+			System.out.println("Query:"+query);
+			
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			if(rs.next())
+			{
+				int price = Integer.parseInt(rs.getString("p_price"));
+				int rank = Integer.parseInt(rs.getString("rank"));
+				
+				if(rank >=10 && rank <20)
+				{
+					rrank = 1;
+				}
+				else if(rank>=20&&rank<30)
+				{
+					rrank = 2;
+				}
+				else if(rank>=30&&rank<40)
+				{
+					rrank = 3;
+				}
+				else if(rank>=40&&rank<50)
+				{
+					rrank = 4;
+				}
+				else if(rank>=50&&rank<60)
+				{
+					rrank = 5;
+				}
+				else if(rank>=60&&rank<70)
+				{
+					rrank = 6;
+				}
+				else if(rank>=70&&rank<80)
+				{
+					rrank = 7;
+				}
+				else if(rank>=80&&rank<90)
+				{
+					rrank = 8;
+				}
+				else if(rank>=90&&rank<100)
+				{
+					rrank = 9;
+				}
+				else if(rank>=100)
+				{
+					rrank = 10;
+				}
+%>
+        </p>
+        <form name="f" action="updatePrice1.jsp" method="post" enctype="multipart/form-data" id="s" onSubmit="return checkPrice(f);">
+          <table width="405" border="0" align="center">
+            
+            <tr>
+              <td height="36" bgcolor="#FF0000"><div align="justify" class="style19"><span class="style3 style8"> Post Name </span> </div></td>
+              <td><label>
+                <input type="text" id="t1" name="pname" value="<%=pname%>" readonly />
+              </label></td>
+            </tr>
+            <tr>
+              <td height="35" bgcolor="#FF0000"><div align="justify" class="style19"><span class="style3 style8">Reserve Price </span></div></td>
+              <td><label>
+                <input type="text" id="t3" name="price" value="<%=price%>" readonly />
+              </label></td>
+            </tr>
+			<tr>
+              <td height="35" bgcolor="#FF0000"><div align="justify" class="style19"><span class="style3 style8">Search Count</span></div></td>
+              <td><label>
+                <input type="text" id="t4" name="rank" value="<%=rank%>" readonly />
+              </label></td>
+            </tr>
+			<%
+				switch(rrank)
+				{
+					case 1:
+						uprice = price+(price*1)/100;
+						break;
+					case 2:
+						uprice = price+(price*2)/100;
+						break;
+					case 3:
+						uprice = price+(price*3)/100;
+						break;
+					case 4:
+						uprice = price+(price*4)/100;
+						break;
+					case 5:
+						uprice = price+(price*5)/100;
+						break;
+					case 6:
+						uprice = price+(price*5.5)/100;
+						break;
+					case 7:
+						uprice = price+(price*6)/100;
+						break;
+					case 8:
+						uprice = price+(price*6.5)/100;
+						break;
+					case 9:
+						uprice = price+(price*8)/100;
+						break;
+					case 10:
+						uprice = price+(price*10)/100;
+						break;
+					default:
+						uprice = price;
+				}
+			%>
+            <tr>
+              <td height="51" bgcolor="#FF0000"><div align="justify" class="style19"><span class="style3 style8"> Suggested Price</span></div></td>
+              <td><label>
+                <input type="text" id="t5" name="uprice" value="<%=uprice%>" readonly />
+              </label></td>
+            </tr>
+           
+            <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td height="26"><div align="right">
+                  <input type="submit" name="Submit" value="Update Price" />
+              </div></td>
+              <td></td>
+            </tr>
+          </table>
+        </form>
+        <%
+
+			}
+
+           //connection.close();
+          }
+         
+          catch(Exception e)
+          {
+            out.println(e.getMessage());
+          }
+%>
+        </p>
+        <p>&nbsp;</p>
+        <div align="right" class="style7"><a href="AdminMain.jsp" class="style17">Back</a></div>
+        <p></p>
+      </div>
+      <p>&nbsp;</p>
+    </div>
+    <div class="box">
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+    </div>
+    <div class="box">
+      <h2>Data Owner Menu </h2>
+      <p>&nbsp;</p>
+      <div class="entry bullet-list">
+        <p class="style17"><a href="AdminMain.jsp" class="style17">Home</a></p>
+        <p class="style17"><a href="index.html" class="style17">Log Out</a></p>
+      </div>
+      <p>&nbsp;</p>
+    </div>
+    <div class="cl">&nbsp;</div>
+  </div>
+  <p>&nbsp;</p>
+</div>
+<div class="footer"></div>
+<!-- END PAGE SOURCE -->
+<div align=center></div>
+</body>
+</html>
